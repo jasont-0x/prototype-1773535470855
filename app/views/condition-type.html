@@ -1,0 +1,43 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Which best describes your condition?" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukBackLink({ text: "Back", href: "javascript:history.back()" }) }}
+
+    {% if errors and errors["condition-type"] %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [{ text: errors["condition-type"], href: "#condition-type" }]
+    }) }}
+    {% endif %}
+
+    <form method="post" novalidate>
+    {{ govukRadios({
+      name: "condition-type",
+      fieldset: {
+        legend: {
+          text: "Which best describes your condition?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      errorMessage: errors["condition-type"] if errors else null,
+      value: data["condition-type"],
+      items: [
+        { value: "walking-difficulty", text: "I cannot walk or have considerable difficulty walking" },
+        { value: "visual-impairment", text: "I am blind or partially sighted" },
+        { value: "arm-disability", text: "I have a severe disability in both arms" },
+        { value: "mental-health", text: "I have a mental health condition that makes travel difficult" },
+        { value: "none-apply", text: "None of these apply to me" }
+      ]
+    }) }}
+      {{ govukButton({ text: "Continue" }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}
