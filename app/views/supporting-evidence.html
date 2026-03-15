@@ -1,0 +1,41 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Do you have supporting evidence of your condition?" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukBackLink({ text: "Back", href: "javascript:history.back()" }) }}
+
+    {% if errors and errors["supporting-evidence"] %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [{ text: errors["supporting-evidence"], href: "#supporting-evidence" }]
+    }) }}
+    {% endif %}
+
+    <form method="post" novalidate>
+    {{ govukRadios({
+      name: "supporting-evidence",
+      fieldset: {
+        legend: {
+          text: "Do you have supporting evidence of your condition?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      hint: { text: "This could be a letter from your doctor, consultant or occupational therapist, or benefit award letters." },
+      errorMessage: errors["supporting-evidence"] if errors else null,
+      value: data["supporting-evidence"],
+      items: [
+        { value: "yes", text: "Yes, I have supporting evidence" },
+        { value: "no", text: "No, I do not have supporting evidence" }
+      ]
+    }) }}
+      {{ govukButton({ text: "Continue" }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}
