@@ -1,0 +1,90 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Check your answers before sending" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukBackLink({ text: "Back", href: "javascript:history.back()" }) }}
+
+    <h1 class="govuk-heading-xl">Check your answers before sending</h1>
+
+    {{ govukSummaryList({
+      rows: [
+      {
+        key: { text: "Who is this application for?" },
+        value: { text: data["applicant-type"] if data["applicant-type"] else "Not answered" },
+        actions: {
+          items: [{
+            href: "/applicant-type",
+            text: "Change",
+            visuallyHiddenText: "who is this application for?"
+          }]
+        }
+      },
+      {
+        key: { text: "Do you have a permanent disability that affects your mobility?" },
+        value: { text: data["mobility-condition"] if data["mobility-condition"] else "Not answered" },
+        actions: {
+          items: [{
+            href: "/mobility-condition",
+            text: "Change",
+            visuallyHiddenText: "do you have a permanent disability that affects your mobility?"
+          }]
+        }
+      },
+      {
+        key: { text: "Which best describes your condition?" },
+        value: { text: data["condition-type"] if data["condition-type"] else "Not answered" },
+        actions: {
+          items: [{
+            href: "/condition-type",
+            text: "Change",
+            visuallyHiddenText: "which best describes your condition?"
+          }]
+        }
+      },
+      {
+        key: { text: "Do you have supporting evidence of your condition?" },
+        value: { text: data["supporting-evidence"] if data["supporting-evidence"] else "Not answered" },
+        actions: {
+          items: [{
+            href: "/supporting-evidence",
+            text: "Change",
+            visuallyHiddenText: "do you have supporting evidence of your condition?"
+          }]
+        }
+      },
+      {
+        key: { text: "What is the full name of the person the Blue Badge is for?" },
+        value: { text: data["full-name"] if data["full-name"] else "Not answered" },
+        actions: {
+          items: [{
+            href: "/full-name",
+            text: "Change",
+            visuallyHiddenText: "what is the full name of the person the blue badge is for?"
+          }]
+        }
+      },
+      {
+        key: { text: "What is their date of birth?" },
+        value: { text: data["date-of-birth"] if data["date-of-birth"] else "Not answered" },
+        actions: {
+          items: [{
+            href: "/date-of-birth",
+            text: "Change",
+            visuallyHiddenText: "what is their date of birth?"
+          }]
+        }
+      }
+      ]
+    }) }}
+
+    <form method="post" novalidate>
+      {{ govukButton({ text: "Confirm and send" }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}
